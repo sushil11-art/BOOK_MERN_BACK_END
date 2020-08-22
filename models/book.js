@@ -19,6 +19,14 @@ const bookSchema=new Schema({
 	publisher: {
 		type:String,
 		required:true
+	},
+	Url:{
+		type:String,
+		required:true
+	},
+	creator:{
+		type:Schema.Types.ObjectId,
+		ref:'User'
 	}
 	//date:{
 	//	type:String,

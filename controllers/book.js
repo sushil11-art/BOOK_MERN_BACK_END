@@ -17,10 +17,14 @@ const errors=validationResult(req);
 		}
 
 const {name,author,description,publisher}=req.body;
+const selectedFile=req.file;
+const Url=selectedFile.path;
+
 const book=new Book({name:name,
 	author:author,
 	description:description,
-	publisher:publisher});
+	publisher:publisher,
+	Url:Url});
 //console.log(book.name);
 	book.save().then(result=>{
 		console.log(result);
@@ -89,6 +93,9 @@ exports.putBook=(req,res,next)=>{
 
 	const {name,author,description,publisher}=req.body;
 
+	const selectedFile=req.file;
+	const Url=selectedFile.path
+
 	Book.findById(bookId).then(book=>{
 		if(!book){
 			const error=new Error('Could not found a book');
@@ -99,6 +106,7 @@ exports.putBook=(req,res,next)=>{
 		book.author=author;
 		book.description=description;
 		book.publisher=publisher;
+		book.Url=Url;
 		return book.save();
 	}).then(result=>{
 		res.status(201).json({message:"Post Updated Successfully",book:result})
